@@ -4,6 +4,7 @@ public class Game : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject playerPrefab;
 
     const float SPAWN_RADIUS = 20.0f;
     const float SPAWN_INTERVAL = 1.0f;
@@ -37,9 +38,11 @@ public class Game : MonoBehaviour
         spawnTimer = 0.0f;
         gameTimer = 90.0f;
 
-        for(int i = 0;i < 100;i++)
-        {
-            
-        }
+        player = Instantiate(playerPrefab, new Vector3(0.0f, 0.5f, 0.0f), Quaternion.identity);
+    }
+
+    public GameObject GetPlayer()
+    {
+        return player;
     }
 }

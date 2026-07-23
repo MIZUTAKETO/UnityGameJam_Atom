@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -8,34 +9,25 @@ public class Player : MonoBehaviour
     //移動速度
     float moveSpeed = 5.0f;
 
-    //カメラ感度
-    //float lookSpeed = 100.0f;
-
     //プレイヤーの移動
     Vector2 movePlayer;
-    Vector3 moveVelocity;
-    Vector3 moveDirection;
 
-    //カメラの回転
-    Vector2 rotateCamera;
+    //攻撃力
+     public float attackDamage = 10.0f;
 
-    //Transform player;
-    //float xRotation;
-
-    //ゲームカメラ
-    //[SerializeField] GameObject MainCamera;
-    public MainCamera cameraScript;
+    [SerializeField] private SphereCollider attackHitBox;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       cameraScript = Camera.main.GetComponent<MainCamera>();
+        attackHitBox.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         PlayerMove();
+        Attack();
     }
 
     //プレイヤーの移動
@@ -72,5 +64,26 @@ public class Player : MonoBehaviour
                 10.0f * Time.deltaTime
             );
         }
+
+        //向いた先に攻撃判定を置く。
+        attackHitBox.transform.position = transform.position + transform.forward * 1.0f;
+    }
+
+    public void Attack()
+    {
+        if(Gamepad.current.xButton.wasPressedThisFrame)
+        {
+            Debug.Log("攻撃のボタンを押したよ！");
+            StartCoroutine(NormalAttack());
+        }
+    }
+
+    private IEnumerator NormalAttack()
+    {
+        attackHitBox.enabled = true;
+
+        yield return new WaitForSeconds(0.1f);
+
+        attackHitBox.enabled = false;
     }
 }

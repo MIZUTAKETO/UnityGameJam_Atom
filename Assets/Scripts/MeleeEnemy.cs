@@ -1,37 +1,30 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class MeleeEnemy : MonoBehaviour
+public class MeleeEnemy : Enemy
 {
-    [SerializeField] GameObject player;
-    [SerializeField] GameObject game;
-
-    Vector3 moveVelocity = Vector3.zero;
-    const float MOVE_ACCELERATION = 5.0f;
-    const float MAX_SPEED = 3.0f;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
-        InitMeleeEnemy();
+        base.Start();
+
+        moveAcceleration = 5.0f;
+        maxSpeed = 3.0f;
+        health = 10.0f;
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        moveVelocity += (player.transform.position - transform.position).normalized * MOVE_ACCELERATION * Time.deltaTime;
+        base.Update();
 
-        if(moveVelocity.magnitude > MAX_SPEED)
+        moveVelocity += (player.transform.position - transform.position).normalized * moveAcceleration * Time.deltaTime;
+
+        if (moveVelocity.magnitude > maxSpeed)
         {
-            moveVelocity = Vector3.Normalize(moveVelocity) * MAX_SPEED;
+            moveVelocity = Vector3.Normalize(moveVelocity) * maxSpeed;
         }
 
         transform.Translate(moveVelocity * Time.deltaTime);
-    }
-
-    void InitMeleeEnemy()
-    {
-        game = GameObject.Find("Game");
-        player = game.GetComponent<Game>().GetPlayer();
     }
 }

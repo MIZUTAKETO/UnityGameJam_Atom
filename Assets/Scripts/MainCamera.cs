@@ -19,7 +19,7 @@ public class MainCamera : MonoBehaviour
 
     const float CAMERA_POSITION_RADIUS = 10.0f;
     const float DEADZONE = 0.2f;
-    const float CAMERA_MOVE_SPEED = 1.0f;
+    const float CAMERA_MOVE_SPEED = 0.5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

@@ -28,8 +28,8 @@ public class Enemy : MonoBehaviour
 
     void InitCommon()
     {
-        game = GameObject.Find("Game");
-        player = game.GetComponent<Game>().GetPlayer();
+        game = GameObject.Find("GameplayScene");
+        player = game.GetComponent<GameplayScene>().GetPlayer();
     }
 
     protected void Dead()

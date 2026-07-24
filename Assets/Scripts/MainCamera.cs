@@ -30,7 +30,7 @@ public class MainCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = game.GetComponent<Game>().GetPlayer();
+        
     }
 
     public void LateUpdate()
@@ -51,7 +51,7 @@ public class MainCamera : MonoBehaviour
 
     void InitCamera()
     {
-        game = GameObject.Find("Game");
-        player = game.GetComponent<Game>().GetPlayer();
+        game = GameObject.Find("GameplayScene");
+        player = game.GetComponent<GameplayScene>().GetPlayer();
     }
 }

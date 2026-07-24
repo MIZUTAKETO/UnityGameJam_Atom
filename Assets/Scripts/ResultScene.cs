@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class ResultScene : MonoBehaviour
 {
     [SerializeField] GameObject sceneLoaderObj;
     [SerializeField] GameObject cursor;
+
+    [SerializeField] TMP_Text scoreText;
 
     SceneLoader sceneLoader;
 
@@ -16,7 +19,7 @@ public class ResultScene : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        scoreText.text = GameData.score.ToString();
     }
 
     // Update is called once per frame

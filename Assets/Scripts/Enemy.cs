@@ -4,13 +4,15 @@ using UnityEngine.UIElements;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected GameObject player;
-    [SerializeField] protected GameObject game;
+    [SerializeField] protected GameObject gameplayScene;
 
     protected Vector3 moveVelocity = Vector3.zero;
     protected float moveAcceleration;
     protected float maxSpeed;
 
     protected float health;
+
+    protected int score;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
@@ -28,12 +30,13 @@ public class Enemy : MonoBehaviour
 
     void InitCommon()
     {
-        game = GameObject.Find("GameplayScene");
-        player = game.GetComponent<GameplayScene>().GetPlayer();
+        gameplayScene = GameObject.Find("GameplayScene");
+        player = gameplayScene.GetComponent<GameplayScene>().GetPlayer();
     }
 
     protected void Dead()
     {
+        GameData.score += score;
         Destroy(gameObject);
     }
 

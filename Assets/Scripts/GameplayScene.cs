@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class GameplayScene : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class GameplayScene : MonoBehaviour
 
     [SerializeField] GameObject sceneLoaderObj;
 
+    [SerializeField] TMP_Text timerText;
+    [SerializeField] TMP_Text scoreText;
+
     SceneLoader sceneLoader;
 
     const float SPAWN_RADIUS = 20.0f;
@@ -20,7 +24,6 @@ public class GameplayScene : MonoBehaviour
     float gameTimer;
     float borderEffectTimer;
 
-    int score;
     int combo;
     int comboGage;
 
@@ -50,6 +53,13 @@ public class GameplayScene : MonoBehaviour
 
         gameTimer -= Time.deltaTime;
 
+        int minutes = (int)(gameTimer / 60);
+        int seconds = (int)(gameTimer % 60);
+
+        timerText.text = $"{minutes:00}:{seconds:00}";
+
+        scoreText.text = GameData.score.ToString();
+
         if (spawnTimer >= SPAWN_INTERVAL)
         {
             float spawnAngle = Random.Range(0.0f, Mathf.PI * 2.0f);
@@ -65,11 +75,6 @@ public class GameplayScene : MonoBehaviour
             borderEffectTimer = 0.0f;
         }
 
-        if (gameTimer <= 5.0f)
-        {
-            Debug.Log("あと少し！");
-        }
-
         if (gameTimer <= 0.0f)
         {
             sceneLoader.ChangeScene(SceneLoader.GameScene.Result);
@@ -79,7 +84,9 @@ public class GameplayScene : MonoBehaviour
     void InitGameplay()
     {
         spawnTimer = 0.0f;
-        gameTimer = 10.0f;
+        gameTimer = 20.0f;
+
+        GameData.score = 0;
 
         player = Instantiate(playerPrefab, new Vector3(0.0f, 0.5f, 0.0f), Quaternion.identity);
 
@@ -91,4 +98,9 @@ public class GameplayScene : MonoBehaviour
         return player;
     }
 
+}
+
+public static class GameData
+{
+    public static int score = 0;
 }

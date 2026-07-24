@@ -11,6 +11,7 @@ public class MeleeEnemy : Enemy
         moveAcceleration = 5.0f;
         maxSpeed = 3.0f;
         health = 10.0f;
+        score = 100;
     }
 
     // Update is called once per frame

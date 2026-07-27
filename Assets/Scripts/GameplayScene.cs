@@ -84,7 +84,7 @@ public class GameplayScene : MonoBehaviour
     void InitGameplay()
     {
         spawnTimer = 0.0f;
-        gameTimer = 20.0f;
+        gameTimer = 60.0f;
 
         GameData.score = 0;
 

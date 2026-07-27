@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -17,10 +18,14 @@ public class Player : MonoBehaviour
 
     [SerializeField] private SphereCollider attackHitBox;
 
+    Animator animator;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         attackHitBox.enabled = false;
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -49,6 +54,7 @@ public class Player : MonoBehaviour
         Vector3 moveDirection = camForward * movePlayer.y + camRight * movePlayer.x;
 
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        transform.position = new Vector3(transform.position.x,1.0f,transform.position.z);
 
         //カメラの回転
         //cameraScript.CameraRotate(xRotation,rotateCamera,lookSpeed);
@@ -63,10 +69,16 @@ public class Player : MonoBehaviour
                 targetRotation,
                 10.0f * Time.deltaTime
             );
+
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
         }
 
         //向いた先に攻撃判定を置く。
-        attackHitBox.transform.position = transform.position + transform.forward * 1.0f;
+        attackHitBox.transform.position = transform.position + transform.forward * 1.2f;
     }
 
     public void Attack()
@@ -74,6 +86,7 @@ public class Player : MonoBehaviour
         if(Gamepad.current.xButton.wasPressedThisFrame)
         {
             Debug.Log("攻撃のボタンを押したよ！");
+            animator.Play("attack",0,0.0f);
             StartCoroutine(NormalAttack());
         }
     }

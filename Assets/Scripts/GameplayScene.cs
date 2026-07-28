@@ -19,6 +19,14 @@ public class GameplayScene : MonoBehaviour
 
     [SerializeField] Image[] comboGageSprites;
 
+    [SerializeField] Image skillOneImage;
+    [SerializeField] Image skillTwoImage;
+
+    [SerializeField] Sprite activeSkillOneSprite;
+    [SerializeField] Sprite activeSkillTwoSprite;
+    [SerializeField] Sprite inactiveSkillOneSprite;
+    [SerializeField] Sprite inactiveSkillTwoSprite;
+
     SceneLoader sceneLoader;
 
     const float SPAWN_RADIUS = 40.0f;
@@ -100,6 +108,24 @@ public class GameplayScene : MonoBehaviour
             {
                 comboGageSprites[i].enabled = false;
             }
+        }
+
+        if(comboGage >= 30)
+        {
+            skillOneImage.sprite = activeSkillOneSprite;
+        }
+        else
+        {
+            skillOneImage.sprite = inactiveSkillOneSprite;
+        }
+
+        if (comboGage >= 60)
+        {
+            skillTwoImage.sprite = activeSkillTwoSprite;
+        }
+        else
+        {
+            skillTwoImage.sprite = inactiveSkillTwoSprite;
         }
     }
 

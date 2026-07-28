@@ -122,6 +122,7 @@ MonoBehaviour:
   attackHitBox: {fileID: 3919099436947491403}
   slashWavePrefab: {fileID: 9053921418964895344, guid: f674790b4f6689a47b77d3e958b969dd, type: 3}
   spinSlashWavePrefab: {fileID: 5382474147291487201, guid: b8dc806f758c99d4eb100c0cadd94e8f, type: 3}
+  gamePlayScene: {fileID: 0}
 --- !u!1 &8475992681566891345
 GameObject:
   m_ObjectHideFlags: 0

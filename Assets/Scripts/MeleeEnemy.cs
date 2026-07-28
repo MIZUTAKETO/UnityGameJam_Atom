@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class MeleeEnemy : Enemy
@@ -26,6 +27,16 @@ public class MeleeEnemy : Enemy
             moveVelocity = Vector3.Normalize(moveVelocity) * maxSpeed;
         }
 
-        transform.Translate(moveVelocity * Time.deltaTime);
+        transform.Translate(moveVelocity * Time.deltaTime,Space.World);
+
+        transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
+
+        Quaternion targetRotation = Quaternion.LookRotation(moveVelocity);
+
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            10.0f * Time.deltaTime
+        );
     }
 }

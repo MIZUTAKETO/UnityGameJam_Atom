@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameplayScene
   player: {fileID: 0}
-  enemyPrefab: {fileID: 999240886485481098, guid: 0b7248632ea5db742925870de3b1fbc4, type: 3}
+  enemyPrefab: {fileID: 8088258393964799431, guid: 056d294ce0074ba4fb8a44d74dc7791e, type: 3}
   borderPrefab: {fileID: 6233953392278673756, guid: 8f7552e287110fa40ba7ffb608e373b8, type: 3}
   playerPrefab: {fileID: 6467591179890345185, guid: ea1a3c4fc68ed31409f14d97144764f6, type: 3}
   sceneLoaderObj: {fileID: 0}

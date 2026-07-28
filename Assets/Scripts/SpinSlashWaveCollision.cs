@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PlayerNormalAttack : MonoBehaviour
+public class SpinSlashWaveCollision : MonoBehaviour
 {
-    [SerializeField] Player player;
+    const float SPINSLASHWAVE_DAMAGE = 50.0f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,14 +23,12 @@ public class PlayerNormalAttack : MonoBehaviour
         {
             Enemy enemy = other.GetComponent<Enemy>();
 
-            if(enemy != null)
+            if (enemy != null)
             {
-                enemy.Damage(player.attackDamage,false);
+                enemy.Damage(SPINSLASHWAVE_DAMAGE,true);
             }
 
-            Debug.Log("当たったよ！");
+            //Debug.Log("当たったよ！");
         }
-
-        enabled = false;
     }
 }

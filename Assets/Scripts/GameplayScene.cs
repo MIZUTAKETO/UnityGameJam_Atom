@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class GameplayScene : MonoBehaviour
 {
@@ -13,19 +15,22 @@ public class GameplayScene : MonoBehaviour
 
     [SerializeField] TMP_Text timerText;
     [SerializeField] TMP_Text scoreText;
+    [SerializeField] TMP_Text comboText;
+
+    [SerializeField] Image[] comboGageSprites;
 
     SceneLoader sceneLoader;
 
-    const float SPAWN_RADIUS = 20.0f;
-    const float SPAWN_INTERVAL = 0.5f;
+    const float SPAWN_RADIUS = 40.0f;
+    const float SPAWN_INTERVAL = 0.1f;
     const float BORDER_EFFECT_INTERVAL = 0.8f;
 
     float spawnTimer;
     float gameTimer;
     float borderEffectTimer;
 
-    int combo;
-    int comboGage;
+    public int combo;
+    public int comboGage;
 
     void Awake()
     {
@@ -35,7 +40,10 @@ public class GameplayScene : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        for (int i = 0; i < comboGageSprites.Length; i++)
+        {
+            comboGageSprites[i].enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -53,12 +61,14 @@ public class GameplayScene : MonoBehaviour
 
         gameTimer -= Time.deltaTime;
 
-        int minutes = (int)(gameTimer / 60);
-        int seconds = (int)(gameTimer % 60);
+        int minutes = (int)((gameTimer + 1) / 60);
+        int seconds = (int)((gameTimer + 1) % 60);
 
         timerText.text = $"{minutes:00}:{seconds:00}";
 
         scoreText.text = GameData.score.ToString();
+
+        comboText.text = combo.ToString();
 
         if (spawnTimer >= SPAWN_INTERVAL)
         {
@@ -78,6 +88,18 @@ public class GameplayScene : MonoBehaviour
         if (gameTimer <= 0.0f)
         {
             sceneLoader.ChangeScene(SceneLoader.GameScene.Result);
+        }
+
+        for(int i = 0; i < 10; i++)
+        {
+            if((comboGage / 6) - 1 >= i)
+            {
+                comboGageSprites[i].enabled = true;
+            }
+            else
+            {
+                comboGageSprites[i].enabled = false;
+            }
         }
     }
 

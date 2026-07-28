@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class PlayerNormalAttack : MonoBehaviour
+public class SlashWaveCollision : MonoBehaviour
 {
-    [SerializeField] Player player;
+    const float SLASHWAVE_DAMAGE = 20.0f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,14 +23,12 @@ public class PlayerNormalAttack : MonoBehaviour
         {
             Enemy enemy = other.GetComponent<Enemy>();
 
-            if(enemy != null)
+            if (enemy != null)
             {
-                enemy.Damage(player.attackDamage,false);
+                enemy.Damage(SLASHWAVE_DAMAGE,true);
             }
 
-            Debug.Log("当たったよ！");
+            //Debug.Log("当たったよ！");
         }
-
-        enabled = false;
     }
 }

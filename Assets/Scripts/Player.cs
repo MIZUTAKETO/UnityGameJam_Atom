@@ -17,8 +17,16 @@ public class Player : MonoBehaviour
      public float attackDamage = 10.0f;
 
     [SerializeField] private SphereCollider attackHitBox;
+    [SerializeField] GameObject slashWavePrefab;
+    [SerializeField] GameObject spinSlashWavePrefab;
+    [SerializeField] GameObject gamePlayScene;
+
 
     Animator animator;
+
+    int attackNum = 0;
+    float attackNumResetTimer = 0;
+    float attackCoolDown = 2.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,6 +34,8 @@ public class Player : MonoBehaviour
         attackHitBox.enabled = false;
 
         animator = GetComponentInChildren<Animator>();
+
+        gamePlayScene = GameObject.Find("GameplayScene");
     }
 
     // Update is called once per frame
@@ -33,6 +43,21 @@ public class Player : MonoBehaviour
     {
         PlayerMove();
         Attack();
+
+        if(attackNum == 1)
+        {
+            attackNumResetTimer += Time.deltaTime;
+            if(attackNumResetTimer > 1.0f)
+            {
+                attackNum = 0;
+                attackNumResetTimer = 0.0f;
+            }
+        }
+
+        if(attackCoolDown < 0.2f)
+        {
+            attackCoolDown += Time.deltaTime;
+        }
     }
 
     //プレイヤーの移動
@@ -78,17 +103,50 @@ public class Player : MonoBehaviour
         }
 
         //向いた先に攻撃判定を置く。
-        attackHitBox.transform.position = transform.position + transform.forward * 1.2f;
+        attackHitBox.transform.position = transform.position + transform.forward * 1.4f;
     }
 
     public void Attack()
     {
-        if(Gamepad.current.xButton.wasPressedThisFrame)
+        if(Gamepad.current.xButton.wasPressedThisFrame && attackCoolDown >= 0.2f)
         {
             Debug.Log("攻撃のボタンを押したよ！");
-            animator.Play("attack",0,0.0f);
+            if(attackNum == 0)
+            {
+                animator.Play("attack",0,0.0f);
+                attackNum = 1;
+                attackNumResetTimer = 0.0f;
+            }
+            else if(attackNum == 1)
+            {
+                animator.Play("attack2",0,0.0f);
+                attackNum = 0;
+            }
+
+            attackCoolDown = 0.0f;
+
             StartCoroutine(NormalAttack());
         }
+        else if (Gamepad.current.rightShoulder.wasPressedThisFrame && attackCoolDown >= 0.2f)
+        {
+            if(gamePlayScene.GetComponent<GameplayScene>().comboGage >= 30)
+            {
+                gamePlayScene.GetComponent<GameplayScene>().comboGage -= 30;
+                animator.Play("slashWave", 0, 0.0f);
+                Instantiate(slashWavePrefab, transform.position, transform.rotation);
+            }
+        }
+        else if (Gamepad.current.leftShoulder.wasPressedThisFrame && attackCoolDown >= 0.2f)
+        {
+            if(gamePlayScene.GetComponent<GameplayScene>().comboGage >= 60)
+            {
+                gamePlayScene.GetComponent<GameplayScene>().comboGage -= 60;
+                animator.Play("spinningSlash", 0, 0.0f);
+                Instantiate(spinSlashWavePrefab, transform.position, Quaternion.identity);
+            }
+        }
+
+
     }
 
     private IEnumerator NormalAttack()

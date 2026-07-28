@@ -22,10 +22,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(health <= 0.0f)
-        {
-            Dead();
-        }
+
     }
 
     void InitCommon()
@@ -34,14 +31,34 @@ public class Enemy : MonoBehaviour
         player = gameplayScene.GetComponent<GameplayScene>().GetPlayer();
     }
 
-    protected void Dead()
+    protected void Dead(bool isKilledBySkill)
     {
-        GameData.score += score;
-        Destroy(gameObject);
+        if(isKilledBySkill)
+        {
+            GameData.score += score;
+            gameplayScene.GetComponent<GameplayScene>().combo++;
+            Destroy(gameObject);
+        }
+        else
+        {
+            GameData.score += score;
+            gameplayScene.GetComponent<GameplayScene>().combo++;
+            if (gameplayScene.GetComponent<GameplayScene>().comboGage < 60)
+            {
+                gameplayScene.GetComponent<GameplayScene>().comboGage++;
+            }
+            Destroy(gameObject);
+        }
+
     }
 
-    public void Damage(float damage)
+    public void Damage(float damage,bool isDamagedBySkill)
     {
         health -= damage;
+
+        if (health <= 0.0f)
+        {
+            Dead(isDamagedBySkill);
+        }
     }
 }

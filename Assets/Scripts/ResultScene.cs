@@ -1,6 +1,8 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
 public class ResultScene : MonoBehaviour
 {
@@ -15,6 +17,13 @@ public class ResultScene : MonoBehaviour
     bool isTilted = false;
 
     Vector2 stickInput;
+
+    bool AfterResult = false;
+    public AudioSource RestartSE;
+    public AudioSource BackTitleSE;
+    public AudioSource MoveSE;
+    [SerializeField] float RestartwaitTime;
+    [SerializeField] float BackTitlewaitTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,6 +46,8 @@ public class ResultScene : MonoBehaviour
         //カーソルが0.5より大きいとき(上入力)
         if (stickInput.y > 0.5 && !isTilted)
         {
+            MoveSE.Play();
+
             selectNum--;
             if(selectNum < 0)
             {
@@ -49,6 +60,8 @@ public class ResultScene : MonoBehaviour
         //カーソルが-0.5より小さいとき(下入力)
         if (stickInput.y < -0.5 && !isTilted)
         {
+            MoveSE.Play();
+
             selectNum++;
             selectNum = selectNum % 2;
 
@@ -74,17 +87,47 @@ public class ResultScene : MonoBehaviour
 
         if(selectNum == 0)
         {
-            if (Gamepad.current.aButton.wasPressedThisFrame)
+            if (AfterResult == false)
             {
-                sceneLoader.ChangeScene(SceneLoader.GameScene.Gameplay);
+                if (Gamepad.current.aButton.wasPressedThisFrame)
+                {
+                    StartCoroutine(Restart());
+                }
             }
         }
         else if(selectNum == 1)
         {
-            if (Gamepad.current.aButton.wasPressedThisFrame)
+            if (AfterResult == false)
             {
-                sceneLoader.ChangeScene(SceneLoader.GameScene.Title);
+                if (Gamepad.current.aButton.wasPressedThisFrame)
+                {
+                    StartCoroutine(BackTitle());
+                }
             }
         }
+    }
+
+    IEnumerator Restart()
+    {
+        AfterResult = true;
+        RestartSE.Play();
+
+        // 効果音が終わるまで待つ
+        yield return new WaitForSeconds(RestartwaitTime);
+
+        //鳴り終わったらシーン切り替え
+        sceneLoader.ChangeScene(SceneLoader.GameScene.Gameplay);
+    }
+
+    IEnumerator BackTitle()
+    {
+        AfterResult = true;
+        BackTitleSE.Play();
+
+        // 効果音が終わるまで待つ
+        yield return new WaitForSeconds(BackTitlewaitTime);
+
+        //鳴り終わったらシーン切り替え
+        sceneLoader.ChangeScene(SceneLoader.GameScene.Title);
     }
 }

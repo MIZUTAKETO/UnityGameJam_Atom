@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     //移動速度
-    float moveSpeed = 10.0f;
+    float moveSpeed = 15.0f;
 
     //プレイヤーの移動
     Vector2 movePlayer;

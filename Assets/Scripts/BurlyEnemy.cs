@@ -10,8 +10,8 @@ public class BurlyEnemy : Enemy
         base.Start();
 
         moveAcceleration = 5.0f;
-        maxSpeed = 2.0f;
-        health = 100.0f;
+        maxSpeed = 3.0f;
+        health = 120.0f;
         score = 500;
     }
 

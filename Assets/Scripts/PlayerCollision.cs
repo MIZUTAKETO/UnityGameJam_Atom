@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -38,7 +37,7 @@ public class PlayerCollision : MonoBehaviour
 
             gameplayScene.GetComponent<GameplayScene>().combo = 0;
 
-            StartCoroutine(player.KnockBackCoroutine(knockBackVelocity, 1.0f));
+            StartCoroutine(player.KnockBackCoroutine(knockBackVelocity, 0.5f));
 
             Bullet bullet = other.GetComponent<Bullet>();
 
@@ -59,7 +58,7 @@ public class PlayerCollision : MonoBehaviour
 
             enemy.attackTimer += Time.deltaTime;
 
-            if(enemy.attackTimer > 0.2f)
+            if(enemy.attackTimer > 0.15f)
             {
                 player.audioManager.playerDamagedSound.Play();
 
@@ -67,7 +66,9 @@ public class PlayerCollision : MonoBehaviour
 
                 gameplayScene.GetComponent<GameplayScene>().combo = 0;
 
-                StartCoroutine(player.KnockBackCoroutine(knockBackVelocity, 0.5f));
+                StartCoroutine(player.KnockBackCoroutine(knockBackVelocity, 0.2f));
+
+                enemy.attackTimer = 0.0f;
             }
         }
         else if (other.CompareTag("BurlyEnemy"))
@@ -77,15 +78,17 @@ public class PlayerCollision : MonoBehaviour
 
             enemy.attackTimer += Time.deltaTime;
 
-            if (enemy.attackTimer > 0.7f)
+            if (enemy.attackTimer > 0.2f)
             {
                 player.audioManager.playerDamagedSound2.Play();
 
-                Vector3 knockBackVelocity = transform.forward * 0.6f;
+                Vector3 knockBackVelocity = transform.forward * 0.2f;
 
                 gameplayScene.GetComponent<GameplayScene>().combo = 0;
 
-                StartCoroutine(player.KnockBackCoroutine(knockBackVelocity, 1.0f));
+                StartCoroutine(player.KnockBackCoroutine(knockBackVelocity, 1.5f));
+
+                enemy.attackTimer = 0.0f;
             }
         }
     }

@@ -25,10 +25,13 @@ public class ResultScene : MonoBehaviour
     [SerializeField] float RestartwaitTime;
     [SerializeField] float BackTitlewaitTime;
 
+    [SerializeField] TMP_Text highScoreText;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         scoreText.text = GameData.score.ToString();
+        highScoreText.text = GameData.highScore.ToString();
     }
 
     // Update is called once per frame

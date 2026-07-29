@@ -3,27 +3,7 @@ guid: 38bb2d30dea55ed45aac0ac435fd253d
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: blade
-    second: {fileID: 2100000, guid: b689e36663114df40b6e0d10fe95e3af, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: body
-    second: {fileID: 2100000, guid: 99982399f13159e4cb6ecacc4ca33dcb, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: eyes
-    second: {fileID: 2100000, guid: c4d236a89b3e941438fa6394e0078fe9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: swordBlack
-    second: {fileID: 2100000, guid: 206ad16aacbe9fa44a825fa2611056bb, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

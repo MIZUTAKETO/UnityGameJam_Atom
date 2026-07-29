@@ -10,7 +10,7 @@ public class UI_Dots : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        DotPosition = new Vector3(Random.Range(0.0f, 900.0f),Random.Range(-500.0f, 0.0f));
+        DotPosition = new Vector3(Random.Range(0.0f, Screen.width),0.0f);
         transform.position = DotPosition;
     }
 

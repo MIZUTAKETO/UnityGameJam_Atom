@@ -17,15 +17,15 @@ public class PlayerNormalAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("攻撃したよ！");
+        //Debug.Log("攻撃したよ！");
 
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("MeleeEnemy") || other.CompareTag("RangedEnemy") || other.CompareTag("BurlyEnemy"))
         {
             Enemy enemy = other.GetComponent<Enemy>();
 
             if(enemy != null)
             {
-                enemy.Damage(player.attackDamage);
+                enemy.Damage(player.attackDamage,false);
             }
 
             Debug.Log("当たったよ！");

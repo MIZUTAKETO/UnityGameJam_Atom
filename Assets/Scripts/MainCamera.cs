@@ -17,9 +17,9 @@ public class MainCamera : MonoBehaviour
 
     float cameraPositionAngle = 0.0f;
 
-    const float CAMERA_POSITION_RADIUS = 10.0f;
+    const float CAMERA_POSITION_RADIUS = 18.0f;
     const float DEADZONE = 0.2f;
-    const float CAMERA_MOVE_SPEED = 0.5f;
+    const float CAMERA_MOVE_SPEED = 0.75f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,19 +30,39 @@ public class MainCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = game.GetComponent<Game>().GetPlayer();
+        
     }
 
     public void LateUpdate()
     {
-        float moveCam = Gamepad.current.rightStick.ReadValue().x;
+        float moveCam = 0.0f;
+
+        if (Gamepad.current != null)
+        {
+            moveCam = Gamepad.current.rightStick.ReadValue().x;
+        }
+        else
+        {
+            if(Keyboard.current.rightArrowKey.isPressed)
+            {
+                moveCam = 1.0f;
+            }
+            else if(Keyboard.current.leftArrowKey.isPressed)
+            {
+                moveCam = -1.0f;
+            }
+            else
+            {
+                moveCam = 0.0f;
+            }
+        }
 
         if (Mathf.Abs(moveCam) > DEADZONE)
         {
             cameraPositionAngle -= moveCam * CAMERA_MOVE_SPEED * Mathf.Deg2Rad;
         }
 
-        Vector3 offset = new Vector3(Mathf.Cos(cameraPositionAngle) * CAMERA_POSITION_RADIUS, 6.0f, Mathf.Sin(cameraPositionAngle) * CAMERA_POSITION_RADIUS);
+        Vector3 offset = new Vector3(Mathf.Cos(cameraPositionAngle) * CAMERA_POSITION_RADIUS, 10.0f, Mathf.Sin(cameraPositionAngle) * CAMERA_POSITION_RADIUS);
 
         transform.position = Vector3.SmoothDamp(transform.position, player.transform.position + offset, ref velocity, smoothTime);
 
@@ -51,7 +71,7 @@ public class MainCamera : MonoBehaviour
 
     void InitCamera()
     {
-        game = GameObject.Find("Game");
-        player = game.GetComponent<Game>().GetPlayer();
+        game = GameObject.Find("GameplayScene");
+        player = game.GetComponent<GameplayScene>().GetPlayer();
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine.UIElements;
 
 public class MeleeEnemy : Enemy
 {
+    public float attackTimer = 0.0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {

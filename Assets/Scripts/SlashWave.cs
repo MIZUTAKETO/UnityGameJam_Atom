@@ -4,7 +4,7 @@ public class SlashWave : MonoBehaviour
 {
     Vector3 velocity = Vector3.zero;
     Vector3 initialVelocity = Vector3.zero;
-    const float INITIALMOVESPEED = 0.5f;
+    const float INITIALMOVESPEED = 0.3f;
 
     float alpha = 1.0f;
 

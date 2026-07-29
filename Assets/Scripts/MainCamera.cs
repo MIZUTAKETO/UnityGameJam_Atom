@@ -17,7 +17,7 @@ public class MainCamera : MonoBehaviour
 
     float cameraPositionAngle = 0.0f;
 
-    const float CAMERA_POSITION_RADIUS = 14.0f;
+    const float CAMERA_POSITION_RADIUS = 18.0f;
     const float DEADZONE = 0.2f;
     const float CAMERA_MOVE_SPEED = 0.75f;
 

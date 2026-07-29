@@ -4,7 +4,9 @@ using UnityEngine.UIElements;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected GameObject player;
-    [SerializeField] protected GameObject gameplayScene;
+    [SerializeField] protected GameObject gameplaySceneObject;
+
+    GameplayScene gameplayScene;
 
     protected Vector3 moveVelocity = Vector3.zero;
     protected float moveAcceleration;
@@ -27,8 +29,10 @@ public class Enemy : MonoBehaviour
 
     void InitCommon()
     {
-        gameplayScene = GameObject.Find("GameplayScene");
-        player = gameplayScene.GetComponent<GameplayScene>().GetPlayer();
+        gameplaySceneObject = GameObject.Find("GameplayScene");
+        player = gameplaySceneObject.GetComponent<GameplayScene>().GetPlayer();
+
+        gameplayScene = gameplaySceneObject.GetComponent<GameplayScene>();
     }
 
     protected void Dead(bool isKilledBySkill)
@@ -36,16 +40,22 @@ public class Enemy : MonoBehaviour
         if(isKilledBySkill)
         {
             GameData.score += score;
-            gameplayScene.GetComponent<GameplayScene>().combo++;
+            gameplayScene.combo++;
+
+            gameplayScene.comboResetTimer = 5.0f;
+
             Destroy(gameObject);
         }
         else
         {
             GameData.score += score;
-            gameplayScene.GetComponent<GameplayScene>().combo++;
-            if (gameplayScene.GetComponent<GameplayScene>().comboGage < 60)
+            gameplayScene.combo++;
+
+            gameplayScene.comboResetTimer = 5.0f;
+
+            if (gameplayScene.comboGage < GameplayScene.MAX_COMBO_GAGE)
             {
-                gameplayScene.GetComponent<GameplayScene>().comboGage++;
+                gameplayScene.comboGage++;
             }
             Destroy(gameObject);
         }

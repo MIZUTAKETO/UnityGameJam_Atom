@@ -29,17 +29,15 @@ public class RangedEnemy : Enemy
 
         Vector3 diff = player.transform.position - transform.position;
 
-        moveVelocity += (player.transform.position - transform.position).normalized * moveAcceleration * Time.deltaTime;
+        moveVelocity += diff.normalized * moveAcceleration * Time.deltaTime;
+
+        if (moveVelocity.sqrMagnitude > maxSpeed * maxSpeed)
+        {
+            moveVelocity = Vector3.Normalize(moveVelocity) * maxSpeed;
+        }
 
         if (ATTACK_RANGE * ATTACK_RANGE < diff.sqrMagnitude)
         {
-
-            if (moveVelocity.sqrMagnitude > maxSpeed * maxSpeed)
-            {
-                moveVelocity = Vector3.Normalize(moveVelocity) * maxSpeed;
-            }
-
-
             transform.Translate(moveVelocity * Time.deltaTime, Space.World);
             transform.position = new Vector3(transform.position.x, 1.0f, transform.position.z);
         }

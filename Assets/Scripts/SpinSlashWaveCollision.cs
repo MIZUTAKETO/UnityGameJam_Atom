@@ -19,7 +19,7 @@ public class SpinSlashWaveCollision : MonoBehaviour
     {
         //Debug.Log("攻撃したよ！");
 
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("MeleeEnemy") || other.CompareTag("RangedEnemy") || other.CompareTag("BurlyEnemy"))
         {
             Enemy enemy = other.GetComponent<Enemy>();
 

@@ -19,7 +19,12 @@ public class Player : MonoBehaviour
     [SerializeField] private SphereCollider attackHitBox;
     [SerializeField] GameObject slashWavePrefab;
     [SerializeField] GameObject spinSlashWavePrefab;
-    [SerializeField] GameObject gamePlayScene;
+    [SerializeField] GameObject gameplaySceneObject;
+    [SerializeField] Renderer playerModelRenderer;
+
+    Renderer[] playerModelRenderers;
+
+    GameplayScene gameplayScene;
 
 
     Animator animator;
@@ -34,6 +39,8 @@ public class Player : MonoBehaviour
     public bool isInvincible = false;
     float invincibleTimer = 0.0f;
 
+    bool isBlinking = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -41,12 +48,21 @@ public class Player : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
 
-        gamePlayScene = GameObject.Find("GameplayScene");
+        gameplaySceneObject = GameObject.Find("GameplayScene");
+
+        gameplayScene = gameplaySceneObject.GetComponent<GameplayScene>();
+
+        playerModelRenderers = GetComponentsInChildren<Renderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(isInvincible && !isBlinking)
+        {
+            StartCoroutine(Blink());
+        }
+
         if (isKnockBacking) return;
 
         PlayerMove();
@@ -233,9 +249,9 @@ public class Player : MonoBehaviour
 
     void FirstSkill()
     {
-        if (gamePlayScene.GetComponent<GameplayScene>().comboGage >= 30)
+        if (gameplayScene.comboGage >= GameplayScene.MAX_COMBO_GAGE / 2)
         {
-            gamePlayScene.GetComponent<GameplayScene>().comboGage -= 30;
+            gameplayScene.comboGage -= GameplayScene.MAX_COMBO_GAGE / 2;
             animator.Play("slashWave", 0, 0.0f);
             Instantiate(slashWavePrefab, transform.position, transform.rotation);
         }
@@ -243,9 +259,9 @@ public class Player : MonoBehaviour
 
     void SecondSkill()
     {
-        if (gamePlayScene.GetComponent<GameplayScene>().comboGage >= 60)
+        if (gameplayScene.comboGage >= GameplayScene.MAX_COMBO_GAGE)
         {
-            gamePlayScene.GetComponent<GameplayScene>().comboGage -= 60;
+            gameplayScene.comboGage -= GameplayScene.MAX_COMBO_GAGE;
             animator.Play("spinningSlash", 0, 0.0f);
             Instantiate(spinSlashWavePrefab, transform.position, Quaternion.identity);
         }
@@ -267,7 +283,7 @@ public class Player : MonoBehaviour
 
         knockBackTimer = 0.0f;
 
-        while (knockBackTimer > 1.0f)
+        while (knockBackTimer < 1.0f)
         {
             knockBackTimer += Time.deltaTime / knockBackTime;
 
@@ -279,9 +295,30 @@ public class Player : MonoBehaviour
 
 
 
-        invincibleTimer = 2.0f;
+        invincibleTimer = 1.0f;
 
 
         isKnockBacking = false;
+    }
+
+    IEnumerator Blink()
+    {
+        isBlinking = true;
+
+        foreach(Renderer r in playerModelRenderers)
+        {
+            r.enabled = false;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        foreach (Renderer r in playerModelRenderers)
+        {
+            r.enabled = true;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        isBlinking = false;
     }
 }

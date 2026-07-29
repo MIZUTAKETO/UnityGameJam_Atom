@@ -37,9 +37,11 @@ public class GameplayScene : MonoBehaviour
     float spawnTimer;
     float gameTimer;
     float borderEffectTimer;
+    public float comboResetTimer;
 
     public int combo;
     public int comboGage;
+    public const int MAX_COMBO_GAGE = 40;
 
     void Awake()
     {
@@ -116,7 +118,7 @@ public class GameplayScene : MonoBehaviour
 
         for(int i = 0; i < 10; i++)
         {
-            if((comboGage / 6) - 1 >= i)
+            if((comboGage / (MAX_COMBO_GAGE / 10)) - 1 >= i)
             {
                 comboGageSprites[i].enabled = true;
             }
@@ -126,7 +128,7 @@ public class GameplayScene : MonoBehaviour
             }
         }
 
-        if(comboGage >= 30)
+        if(comboGage >= MAX_COMBO_GAGE / 2)
         {
             skillOneImage.sprite = activeSkillOneSprite;
         }
@@ -135,7 +137,7 @@ public class GameplayScene : MonoBehaviour
             skillOneImage.sprite = inactiveSkillOneSprite;
         }
 
-        if (comboGage >= 60)
+        if (comboGage >= MAX_COMBO_GAGE)
         {
             skillTwoImage.sprite = activeSkillTwoSprite;
         }
@@ -143,12 +145,23 @@ public class GameplayScene : MonoBehaviour
         {
             skillTwoImage.sprite = inactiveSkillTwoSprite;
         }
+
+        if(combo > 0)
+        {
+            comboResetTimer -= Time.deltaTime;
+            if(comboResetTimer <= 0.0f)
+            {
+                combo = 0;
+                comboResetTimer = 5.0f;
+            }
+        }
     }
 
     void InitGameplay()
     {
         spawnTimer = 0.0f;
         gameTimer = 60.0f;
+        comboResetTimer = 5.0f;
 
         GameData.score = 0;
 

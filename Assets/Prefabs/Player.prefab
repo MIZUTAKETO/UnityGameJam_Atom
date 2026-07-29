@@ -66,6 +66,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8715bdd99e5b744199945efe1ad26f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollision
+  gameplayScene: {fileID: 0}
+  playerGameObject: {fileID: 0}
 --- !u!1 &6467591179890345185
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,10 +189,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
   attackDamage: 10
   attackHitBox: {fileID: 3919099436947491403}
-  playerCollision: {fileID: 6655813900632775633}
   slashWavePrefab: {fileID: 9053921418964895344, guid: f674790b4f6689a47b77d3e958b969dd, type: 3}
   spinSlashWavePrefab: {fileID: 5382474147291487201, guid: b8dc806f758c99d4eb100c0cadd94e8f, type: 3}
   gamePlayScene: {fileID: 0}
+  playerModelRenderer: {fileID: 7508226948785328368}
+  isInvincible: 0
 --- !u!1 &8475992681566891345
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +405,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!23 &7508226948785328368 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 38bb2d30dea55ed45aac0ac435fd253d, type: 3}
+  m_PrefabInstance: {fileID: 9219713965930564724}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8300812310490050853 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 38bb2d30dea55ed45aac0ac435fd253d, type: 3}

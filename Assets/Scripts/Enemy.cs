@@ -39,7 +39,16 @@ public class Enemy : MonoBehaviour
     {
         if(isKilledBySkill)
         {
-            GameData.score += score;
+            //平方根で倍率の伸びを抑える
+            float multiplier = 1.0f + Mathf.Sqrt(gameplayScene.combo) * 0.2f;
+
+            GameData.score += (int)(score * multiplier);
+
+            if(GameData.score > GameData.highScore)
+            {
+                GameData.highScore = GameData.score;
+            }
+
             gameplayScene.combo++;
 
             gameplayScene.comboResetTimer = 5.0f;
@@ -48,7 +57,16 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            GameData.score += score;
+            //平方根で倍率の伸びを抑える
+            float multiplier = 1.0f + Mathf.Sqrt(gameplayScene.combo) * 0.2f;
+
+            GameData.score += (int)(score * multiplier);
+
+            if (GameData.score > GameData.highScore)
+            {
+                GameData.highScore = GameData.score;
+            }
+
             gameplayScene.combo++;
 
             gameplayScene.comboResetTimer = 5.0f;

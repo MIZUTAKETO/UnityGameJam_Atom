@@ -200,11 +200,11 @@ public class Player : MonoBehaviour
                 {
                     NormalAttack();
                 }
-                else if (Gamepad.current.rightShoulder.wasPressedThisFrame)
+                else if (Gamepad.current.leftShoulder.wasPressedThisFrame)
                 {
                     FirstSkill();
                 }
-                else if (Gamepad.current.leftShoulder.wasPressedThisFrame)
+                else if (Gamepad.current.rightShoulder.wasPressedThisFrame)
                 {
                     SecondSkill();
                 }

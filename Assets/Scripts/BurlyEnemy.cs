@@ -11,7 +11,7 @@ public class BurlyEnemy : Enemy
 
         moveAcceleration = 5.0f;
         maxSpeed = 2.0f;
-        health = 80.0f;
+        health = 100.0f;
         score = 500;
     }
 

@@ -35,7 +35,27 @@ public class MainCamera : MonoBehaviour
 
     public void LateUpdate()
     {
-        float moveCam = Gamepad.current.rightStick.ReadValue().x;
+        float moveCam = 0.0f;
+
+        if (Gamepad.current != null)
+        {
+            moveCam = Gamepad.current.rightStick.ReadValue().x;
+        }
+        else
+        {
+            if(Keyboard.current.rightArrowKey.isPressed)
+            {
+                moveCam = 1.0f;
+            }
+            else if(Keyboard.current.leftArrowKey.isPressed)
+            {
+                moveCam = -1.0f;
+            }
+            else
+            {
+                moveCam = 0.0f;
+            }
+        }
 
         if (Mathf.Abs(moveCam) > DEADZONE)
         {

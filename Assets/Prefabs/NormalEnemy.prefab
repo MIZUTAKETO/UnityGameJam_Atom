@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &9006686839437449366
+--- !u!1001 &5735536831397956460
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,43 +10,43 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7478341
+      value: 91.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7478341
+      value: 91.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7478341
+      value: 91.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 994.6926
+      value: -248.68002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 1.0032
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 164.49387
+      value: -19.230556
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.000000030908623
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.000000030908623
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -62,15 +62,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_Name
-      value: MeleeEnemy
+      value: NormalEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       propertyPath: m_TagString
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -78,61 +74,26 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3311053181971251289}
+      addedObject: {fileID: -618093837615226623}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6440294595365343785}
+      addedObject: {fileID: 6006997869240882566}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -1226014804558514193}
+      addedObject: {fileID: 1066478411117699411}
   m_SourcePrefab: {fileID: 100100000, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
---- !u!1 &8088258393964799431 stripped
+--- !u!1 &4853140480271595069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 95ebbdd0a33c2064f8838f4d24df73a5, type: 3}
-  m_PrefabInstance: {fileID: 9006686839437449366}
+  m_PrefabInstance: {fileID: 5735536831397956460}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3311053181971251289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8088258393964799431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dbe39bfeae0da64e91c1cb394310fae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemy
-  player: {fileID: 0}
-  gameplayScene: {fileID: 0}
---- !u!65 &6440294595365343785
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8088258393964799431}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.8148317, y: 4.0688515, z: 3.2953548}
-  m_Center: {x: -0.14111114, y: 0.34038728, z: -0.7534802}
---- !u!54 &-1226014804558514193
+--- !u!54 &-618093837615226623
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8088258393964799431}
+  m_GameObject: {fileID: 4853140480271595069}
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
@@ -153,3 +114,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &6006997869240882566
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4853140480271595069}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.019999998, y: 0.020000005, z: 0.020000005}
+  m_Center: {x: -9.313226e-10, y: 4.656614e-10, z: 9.7058795e-24}
+--- !u!114 &1066478411117699411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4853140480271595069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe39bfeae0da64e91c1cb394310fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeEnemy
+  player: {fileID: 0}
+  gameplayScene: {fileID: 0}

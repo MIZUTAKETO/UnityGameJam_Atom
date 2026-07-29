@@ -21,9 +21,19 @@ public class TitleScene : MonoBehaviour
             return;
         }
 
-        if (Gamepad.current.aButton.wasPressedThisFrame)
+        if(Gamepad.current != null)
         {
-            sceneLoader.ChangeScene(SceneLoader.GameScene.Gameplay);
+            if (Gamepad.current.aButton.wasPressedThisFrame)
+            {
+                sceneLoader.ChangeScene(SceneLoader.GameScene.Gameplay);
+            }
+        }
+        else
+        {
+            if (Keyboard.current.aKey.wasPressedThisFrame)
+            {
+                sceneLoader.ChangeScene(SceneLoader.GameScene.Gameplay);
+            }
         }
     }
 }

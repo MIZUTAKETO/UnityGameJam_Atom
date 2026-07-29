@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SlashWaveCollision : MonoBehaviour
 {
-    const float SLASHWAVE_DAMAGE = 20.0f;
+    const float SLASHWAVE_DAMAGE = 30.0f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

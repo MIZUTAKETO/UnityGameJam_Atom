@@ -22,7 +22,7 @@ public class MeleeEnemy : Enemy
 
         moveVelocity += (player.transform.position - transform.position).normalized * moveAcceleration * Time.deltaTime;
 
-        if (moveVelocity.magnitude > maxSpeed)
+        if (moveVelocity.sqrMagnitude > maxSpeed * maxSpeed)
         {
             moveVelocity = Vector3.Normalize(moveVelocity) * maxSpeed;
         }

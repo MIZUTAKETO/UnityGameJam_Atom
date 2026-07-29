@@ -32,7 +32,26 @@ public class ResultScene : MonoBehaviour
             return;
         }
 
-        stickInput = Gamepad.current.leftStick.ReadValue();
+        if(Gamepad.current != null)
+        {
+            stickInput = Gamepad.current.leftStick.ReadValue();
+        }
+        else
+        {
+            if(Keyboard.current.upArrowKey.wasPressedThisFrame || Keyboard.current.wKey.wasPressedThisFrame)
+            {
+                stickInput.y = 1.0f;
+            }
+            else if(Keyboard.current.downArrowKey.wasPressedThisFrame || Keyboard.current.sKey.wasPressedThisFrame)
+            {
+                stickInput.y = -1.0f;
+            }
+            else
+            {
+                stickInput.y = 0.0f;
+            }
+        }
+        
 
         //カーソルが0.5より大きいとき(上入力)
         if (stickInput.y > 0.5 && !isTilted)
@@ -74,16 +93,37 @@ public class ResultScene : MonoBehaviour
 
         if(selectNum == 0)
         {
-            if (Gamepad.current.aButton.wasPressedThisFrame)
+            if (Gamepad.current != null)
             {
-                sceneLoader.ChangeScene(SceneLoader.GameScene.Gameplay);
+                if (Gamepad.current.aButton.wasPressedThisFrame)
+                {
+                    sceneLoader.ChangeScene(SceneLoader.GameScene.Gameplay);
+                }
+            }
+            else
+            {
+                if (Keyboard.current.aKey.wasPressedThisFrame)
+                {
+                    sceneLoader.ChangeScene(SceneLoader.GameScene.Gameplay);
+                }
             }
         }
+        //下を選択しているなら
         else if(selectNum == 1)
         {
-            if (Gamepad.current.aButton.wasPressedThisFrame)
+            if (Gamepad.current != null)
             {
-                sceneLoader.ChangeScene(SceneLoader.GameScene.Title);
+                if (Gamepad.current.aButton.wasPressedThisFrame)
+                {
+                    sceneLoader.ChangeScene(SceneLoader.GameScene.Title);
+                }
+            }
+            else
+            {
+                if (Keyboard.current.aKey.wasPressedThisFrame)
+                {
+                    sceneLoader.ChangeScene(SceneLoader.GameScene.Title);
+                }
             }
         }
     }

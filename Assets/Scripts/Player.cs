@@ -28,6 +28,12 @@ public class Player : MonoBehaviour
     float attackNumResetTimer = 0;
     float attackCoolDown = 2.0f;
 
+    bool isKnockBacking = false;
+    float knockBackTimer = 0.0f;
+
+    public bool isInvincible = false;
+    float invincibleTimer = 0.0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -41,6 +47,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isKnockBacking) return;
+
         PlayerMove();
         Attack();
 
@@ -64,10 +72,38 @@ public class Player : MonoBehaviour
     public void PlayerMove()
     {
         //左スティックの入力を取得
-        movePlayer = Gamepad.current.leftStick.ReadValue();
+        if(Gamepad.current != null)
+        {
+            movePlayer = Gamepad.current.leftStick.ReadValue();
+        }
+        else
+        {
+            if (Keyboard.current.wKey.isPressed)
+            {
+                movePlayer.y = 1.0f;
+            }
+            else if (Keyboard.current.sKey.isPressed)
+            {
+                movePlayer.y = -1.0f;
+            }
+            else
+            {
+                movePlayer.y = 0.0f;
+            }
 
-        //右スティックの入力を取得
-        //rotateCamera = Gamepad.current.rightStick.ReadValue();
+            if (Keyboard.current.dKey.isPressed)
+            {
+                movePlayer.x = 1.0f;
+            }
+            else if (Keyboard.current.aKey.isPressed)
+            {
+                movePlayer.x = -1.0f;
+            }
+            else
+            {
+                movePlayer.x = 0.0f;
+            }
+        }
 
         Vector3 camForward = Camera.main.transform.forward;
         Vector3 camRight = Camera.main.transform.right;
@@ -80,6 +116,24 @@ public class Player : MonoBehaviour
 
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
         transform.position = new Vector3(transform.position.x,1.0f,transform.position.z);
+
+        if(transform.position.x > 250.0f)
+        {
+            transform.position = new Vector3(250.0f,transform.position.y,transform.position.z);
+        }
+        else if (transform.position.x < -250.0f)
+        {
+            transform.position = new Vector3(-250.0f, transform.position.y, transform.position.z);
+        }
+
+        if (transform.position.z > 250.0f)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 250.0f);
+        }
+        else if (transform.position.z < -250.0f)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -250.0f);
+        }
 
         //カメラの回転
         //cameraScript.CameraRotate(xRotation,rotateCamera,lookSpeed);
@@ -104,57 +158,130 @@ public class Player : MonoBehaviour
 
         //向いた先に攻撃判定を置く。
         attackHitBox.transform.position = transform.position + transform.forward * 1.4f;
+
+        //無敵時間が0より大きければ
+        if(invincibleTimer > 0.0f)
+        {
+            invincibleTimer -= Time.deltaTime;
+        }
+        else
+        {
+            if(isInvincible)
+            {
+                Debug.Log("無敵解除！");
+                isInvincible = false;
+            }
+        }
     }
 
     public void Attack()
     {
-        if(Gamepad.current.xButton.wasPressedThisFrame && attackCoolDown >= 0.2f)
+        if(attackCoolDown >= 0.1f)
         {
-            Debug.Log("攻撃のボタンを押したよ！");
-            if(attackNum == 0)
+            if (Gamepad.current != null)
             {
-                animator.Play("attack",0,0.0f);
-                attackNum = 1;
-                attackNumResetTimer = 0.0f;
+                if (Gamepad.current.xButton.wasPressedThisFrame)
+                {
+                    NormalAttack();
+                }
+                else if (Gamepad.current.rightShoulder.wasPressedThisFrame)
+                {
+                    FirstSkill();
+                }
+                else if (Gamepad.current.leftShoulder.wasPressedThisFrame)
+                {
+                    SecondSkill();
+                }
             }
-            else if(attackNum == 1)
+            else
             {
-                animator.Play("attack2",0,0.0f);
-                attackNum = 0;
-            }
-
-            attackCoolDown = 0.0f;
-
-            StartCoroutine(NormalAttack());
-        }
-        else if (Gamepad.current.rightShoulder.wasPressedThisFrame && attackCoolDown >= 0.2f)
-        {
-            if(gamePlayScene.GetComponent<GameplayScene>().comboGage >= 30)
-            {
-                gamePlayScene.GetComponent<GameplayScene>().comboGage -= 30;
-                animator.Play("slashWave", 0, 0.0f);
-                Instantiate(slashWavePrefab, transform.position, transform.rotation);
-            }
-        }
-        else if (Gamepad.current.leftShoulder.wasPressedThisFrame && attackCoolDown >= 0.2f)
-        {
-            if(gamePlayScene.GetComponent<GameplayScene>().comboGage >= 60)
-            {
-                gamePlayScene.GetComponent<GameplayScene>().comboGage -= 60;
-                animator.Play("spinningSlash", 0, 0.0f);
-                Instantiate(spinSlashWavePrefab, transform.position, Quaternion.identity);
+                if (Keyboard.current.hKey.wasPressedThisFrame)
+                {
+                    NormalAttack();
+                }
+                else if (Keyboard.current.jKey.wasPressedThisFrame)
+                {
+                    FirstSkill();
+                }
+                else if (Keyboard.current.kKey.wasPressedThisFrame)
+                {
+                    SecondSkill();
+                }
             }
         }
-
-
     }
 
-    private IEnumerator NormalAttack()
+    void NormalAttack()
+    {
+        Debug.Log("攻撃のボタンを押したよ！");
+        if (attackNum == 0)
+        {
+            animator.Play("attack", 0, 0.0f);
+            attackNum = 1;
+            attackNumResetTimer = 0.0f;
+        }
+        else if (attackNum == 1)
+        {
+            animator.Play("attack2", 0, 0.0f);
+            attackNum = 0;
+        }
+
+        attackCoolDown = 0.0f;
+
+        StartCoroutine(NormalAttackCoroutine());
+    }
+
+    void FirstSkill()
+    {
+        if (gamePlayScene.GetComponent<GameplayScene>().comboGage >= 30)
+        {
+            gamePlayScene.GetComponent<GameplayScene>().comboGage -= 30;
+            animator.Play("slashWave", 0, 0.0f);
+            Instantiate(slashWavePrefab, transform.position, transform.rotation);
+        }
+    }
+
+    void SecondSkill()
+    {
+        if (gamePlayScene.GetComponent<GameplayScene>().comboGage >= 60)
+        {
+            gamePlayScene.GetComponent<GameplayScene>().comboGage -= 60;
+            animator.Play("spinningSlash", 0, 0.0f);
+            Instantiate(spinSlashWavePrefab, transform.position, Quaternion.identity);
+        }
+    }
+    private IEnumerator NormalAttackCoroutine()
     {
         attackHitBox.enabled = true;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
         attackHitBox.enabled = false;
+    }
+
+    public IEnumerator KnockBackCoroutine(Vector3 knockBackVelocity,float knockBackTime)
+    {
+        isKnockBacking = true;
+
+        isInvincible = true;
+
+        knockBackTimer = 0.0f;
+
+        while (knockBackTimer > 1.0f)
+        {
+            knockBackTimer += Time.deltaTime / knockBackTime;
+
+            float t  = 1 - (1 - knockBackTimer) * (1 - knockBackTimer);
+
+            transform.position += Vector3.Lerp(knockBackVelocity, Vector3.zero, t);
+            yield return null;
+        }
+
+
+
+        invincibleTimer = 2.0f;
+
+
+        isKnockBacking = false;
     }
 }

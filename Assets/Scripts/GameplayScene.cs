@@ -7,7 +7,8 @@ public class GameplayScene : MonoBehaviour
 {
 
     [SerializeField] public GameObject player;
-    [SerializeField] public GameObject enemyPrefab;
+    [SerializeField] public GameObject meleeEnemyPrefab;
+    [SerializeField] public GameObject rangedEnemyPrefab;
     [SerializeField] public GameObject borderPrefab;
     [SerializeField] public GameObject playerPrefab;
 
@@ -81,7 +82,22 @@ public class GameplayScene : MonoBehaviour
         if (spawnTimer >= SPAWN_INTERVAL)
         {
             float spawnAngle = Random.Range(0.0f, Mathf.PI * 2.0f);
-            Instantiate(enemyPrefab, player.transform.position + new Vector3(Mathf.Cos(spawnAngle) * SPAWN_RADIUS, 0.0f, Mathf.Sin(spawnAngle) * SPAWN_RADIUS), Quaternion.identity);
+
+            while(Mathf.Abs(player.transform.position.x + Mathf.Cos(spawnAngle) * SPAWN_RADIUS) > 250.0f || Mathf.Abs(player.transform.position.z + Mathf.Sin(spawnAngle) * SPAWN_RADIUS) > 250.0f)
+            {
+                spawnAngle += Mathf.PI / 4.0f;
+            }
+
+            int enemyType = Random.Range(0, 100);
+
+            if(enemyType < 97)
+            {
+                Instantiate(meleeEnemyPrefab, player.transform.position + new Vector3(Mathf.Cos(spawnAngle) * SPAWN_RADIUS, 0.0f, Mathf.Sin(spawnAngle) * SPAWN_RADIUS), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(rangedEnemyPrefab, player.transform.position + new Vector3(Mathf.Cos(spawnAngle) * SPAWN_RADIUS, 0.0f, Mathf.Sin(spawnAngle) * SPAWN_RADIUS), Quaternion.identity);
+            }
 
             spawnTimer = 0.0f;
         }

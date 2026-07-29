@@ -21,6 +21,9 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject spinSlashWavePrefab;
     [SerializeField] GameObject gameplaySceneObject;
     [SerializeField] Renderer playerModelRenderer;
+    [SerializeField] GameObject audioManagerObject;
+
+    public AudioManager audioManager;
 
     Renderer[] playerModelRenderers;
 
@@ -53,6 +56,9 @@ public class Player : MonoBehaviour
         gameplayScene = gameplaySceneObject.GetComponent<GameplayScene>();
 
         playerModelRenderers = GetComponentsInChildren<Renderer>();
+
+        audioManagerObject = GameObject.Find("AudioManager");
+        audioManager = audioManagerObject.GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -251,6 +257,7 @@ public class Player : MonoBehaviour
     {
         if (gameplayScene.comboGage >= GameplayScene.MAX_COMBO_GAGE / 2)
         {
+            audioManager.slashWaveSound.Play();
             gameplayScene.comboGage -= GameplayScene.MAX_COMBO_GAGE / 2;
             animator.Play("slashWave", 0, 0.0f);
             Instantiate(slashWavePrefab, transform.position, transform.rotation);
@@ -261,6 +268,7 @@ public class Player : MonoBehaviour
     {
         if (gameplayScene.comboGage >= GameplayScene.MAX_COMBO_GAGE)
         {
+            audioManager.spinSlashWaveSound.Play();
             gameplayScene.comboGage -= GameplayScene.MAX_COMBO_GAGE;
             animator.Play("spinningSlash", 0, 0.0f);
             Instantiate(spinSlashWavePrefab, transform.position, Quaternion.identity);
@@ -269,6 +277,8 @@ public class Player : MonoBehaviour
     private IEnumerator NormalAttackCoroutine()
     {
         attackHitBox.enabled = true;
+
+        audioManager.playerNormalAttackSound.Play();
 
         yield return new WaitForSeconds(0.1f);
 

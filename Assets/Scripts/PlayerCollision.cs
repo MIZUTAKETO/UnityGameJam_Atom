@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class PlayerCollision : MonoBehaviour
             Debug.Log(player.isInvincible);
             if (player.isInvincible) return;
 
+            player.audioManager.playerDamagedSound.Play();
+
             Vector3 knockBackVelocity = transform.forward * 0.1f;
 
             gameplayScene.GetComponent<GameplayScene>().combo = 0;
@@ -56,8 +59,10 @@ public class PlayerCollision : MonoBehaviour
 
             enemy.attackTimer += Time.deltaTime;
 
-            if(enemy.attackTimer > 0.5f)
+            if(enemy.attackTimer > 0.2f)
             {
+                player.audioManager.playerDamagedSound.Play();
+
                 Vector3 knockBackVelocity = transform.forward * 0.1f;
 
                 gameplayScene.GetComponent<GameplayScene>().combo = 0;
@@ -67,12 +72,15 @@ public class PlayerCollision : MonoBehaviour
         }
         else if (other.CompareTag("BurlyEnemy"))
         {
+
             BurlyEnemy enemy = other.GetComponent<BurlyEnemy>();
 
             enemy.attackTimer += Time.deltaTime;
 
-            if (enemy.attackTimer > 1.5f)
+            if (enemy.attackTimer > 0.7f)
             {
+                player.audioManager.playerDamagedSound2.Play();
+
                 Vector3 knockBackVelocity = transform.forward * 0.6f;
 
                 gameplayScene.GetComponent<GameplayScene>().combo = 0;

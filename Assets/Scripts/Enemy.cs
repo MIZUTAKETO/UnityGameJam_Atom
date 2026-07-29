@@ -5,8 +5,13 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] protected GameObject player;
     [SerializeField] protected GameObject gameplaySceneObject;
+    [SerializeField] protected GameObject audioManagerObject;
+
+    AudioManager audioManager;
 
     GameplayScene gameplayScene;
+
+    [SerializeField] AudioSource damagedSound;
 
     protected Vector3 moveVelocity = Vector3.zero;
     protected float moveAcceleration;
@@ -33,6 +38,9 @@ public class Enemy : MonoBehaviour
         player = gameplaySceneObject.GetComponent<GameplayScene>().GetPlayer();
 
         gameplayScene = gameplaySceneObject.GetComponent<GameplayScene>();
+
+        audioManagerObject = GameObject.Find("AudioManager");
+        audioManager = audioManagerObject.GetComponent<AudioManager>();
     }
 
     protected void Dead(bool isKilledBySkill)
@@ -83,6 +91,8 @@ public class Enemy : MonoBehaviour
     public void Damage(float damage,bool isDamagedBySkill)
     {
         health -= damage;
+
+        audioManager.enemyDamagedSound.Play();
 
         if (health <= 0.0f)
         {

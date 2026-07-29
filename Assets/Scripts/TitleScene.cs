@@ -28,7 +28,7 @@ public class TitleScene : MonoBehaviour
             return;
         }
 
-        if (AfterB == false)
+        if (!AfterB)
         {
             if (Gamepad.current.aButton.wasPressedThisFrame)
             {
@@ -37,16 +37,15 @@ public class TitleScene : MonoBehaviour
         }
     }
 
-    //Bãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰å®Ÿè¡Œ
     IEnumerator TitleSE()
     {
         AfterB = true;
         audioSource.Play();
 
-        // åŠ¹æœéŸ³ãŒçµ‚ã‚ã‚‹ã¾ã§å¾…ã¤
+        // Œø‰Ê‰¹‚ªI‚í‚é‚Ü‚Å‘Ò‚Â
         yield return new WaitForSeconds(waitTime);
 
-        //é³´ã‚Šçµ‚ã‚ã£ãŸã‚‰ã‚·ãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆ
+        //–Â‚èI‚í‚Á‚½‚çƒV[ƒ“Ø‚è‘Ö‚¦
         sceneLoader.ChangeScene(SceneLoader.GameScene.Gameplay);
     }
 }

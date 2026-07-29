@@ -56,13 +56,28 @@ public class PlayerCollision : MonoBehaviour
 
             enemy.attackTimer += Time.deltaTime;
 
-            if(enemy.attackTimer > 1.0f)
+            if(enemy.attackTimer > 0.5f)
             {
                 Vector3 knockBackVelocity = transform.forward * 0.1f;
 
                 gameplayScene.GetComponent<GameplayScene>().combo = 0;
 
                 StartCoroutine(player.KnockBackCoroutine(knockBackVelocity, 0.5f));
+            }
+        }
+        else if (other.CompareTag("BurlyEnemy"))
+        {
+            BurlyEnemy enemy = other.GetComponent<BurlyEnemy>();
+
+            enemy.attackTimer += Time.deltaTime;
+
+            if (enemy.attackTimer > 1.5f)
+            {
+                Vector3 knockBackVelocity = transform.forward * 0.6f;
+
+                gameplayScene.GetComponent<GameplayScene>().combo = 0;
+
+                StartCoroutine(player.KnockBackCoroutine(knockBackVelocity, 1.0f));
             }
         }
     }
@@ -72,6 +87,12 @@ public class PlayerCollision : MonoBehaviour
         if (other.CompareTag("MeleeEnemy"))
         {
             MeleeEnemy enemy = other.GetComponent<MeleeEnemy>();
+
+            enemy.attackTimer = 0.0f;
+        }
+        else if (other.CompareTag("BurlyEnemy"))
+        {
+            BurlyEnemy enemy = other.GetComponent<BurlyEnemy>();
 
             enemy.attackTimer = 0.0f;
         }

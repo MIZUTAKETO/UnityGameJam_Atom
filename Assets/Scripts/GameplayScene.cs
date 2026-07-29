@@ -9,6 +9,7 @@ public class GameplayScene : MonoBehaviour
     [SerializeField] public GameObject player;
     [SerializeField] public GameObject meleeEnemyPrefab;
     [SerializeField] public GameObject rangedEnemyPrefab;
+    [SerializeField] public GameObject burlyEnemyPrefab;
     [SerializeField] public GameObject borderPrefab;
     [SerializeField] public GameObject playerPrefab;
 
@@ -90,15 +91,19 @@ public class GameplayScene : MonoBehaviour
                 spawnAngle += Mathf.PI / 4.0f;
             }
 
-            int enemyType = Random.Range(0, 100);
+            int enemyType = Random.Range(0, 101);
 
             if(enemyType < 97)
             {
                 Instantiate(meleeEnemyPrefab, player.transform.position + new Vector3(Mathf.Cos(spawnAngle) * SPAWN_RADIUS, 0.0f, Mathf.Sin(spawnAngle) * SPAWN_RADIUS), Quaternion.identity);
             }
-            else
+            else if(enemyType >= 97 && enemyType < 99)
             {
                 Instantiate(rangedEnemyPrefab, player.transform.position + new Vector3(Mathf.Cos(spawnAngle) * SPAWN_RADIUS, 0.0f, Mathf.Sin(spawnAngle) * SPAWN_RADIUS), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(burlyEnemyPrefab, player.transform.position + new Vector3(Mathf.Cos(spawnAngle) * SPAWN_RADIUS, 0.0f, Mathf.Sin(spawnAngle) * SPAWN_RADIUS), Quaternion.identity);
             }
 
             spawnTimer = 0.0f;

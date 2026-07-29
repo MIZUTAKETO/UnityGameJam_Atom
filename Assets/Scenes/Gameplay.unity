@@ -301,6 +301,7 @@ MonoBehaviour:
   player: {fileID: 0}
   meleeEnemyPrefab: {fileID: 4853140480271595069, guid: ae354897f3b70a74cabc2137d7ef8b72, type: 3}
   rangedEnemyPrefab: {fileID: 6451460137065954095, guid: 43db6a88cf48611488d645df1210ff06, type: 3}
+  burlyEnemyPrefab: {fileID: 3858437448516207586, guid: 93d6357c51d26e44cbcedab27b5af729, type: 3}
   borderPrefab: {fileID: 6233953392278673756, guid: 8f7552e287110fa40ba7ffb608e373b8, type: 3}
   playerPrefab: {fileID: 6467591179890345185, guid: ea1a3c4fc68ed31409f14d97144764f6, type: 3}
   sceneLoaderObj: {fileID: 0}
@@ -324,6 +325,7 @@ MonoBehaviour:
   activeSkillTwoSprite: {fileID: 21300000, guid: 78886f81982425242bee907cd69c6654, type: 3}
   inactiveSkillOneSprite: {fileID: 21300000, guid: c204211d7ad6d4a47a2cb206843be15d, type: 3}
   inactiveSkillTwoSprite: {fileID: 21300000, guid: edb8d473c1b12c046962614219e55c1d, type: 3}
+  comboResetTimer: 0
   combo: 0
   comboGage: 0
 --- !u!4 &308019893

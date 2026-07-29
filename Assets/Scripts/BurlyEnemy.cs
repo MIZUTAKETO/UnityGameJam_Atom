@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
-public class MeleeEnemy : Enemy
+public class BurlyEnemy : Enemy
 {
     public float attackTimer = 0.0f;
 
@@ -12,9 +10,9 @@ public class MeleeEnemy : Enemy
         base.Start();
 
         moveAcceleration = 5.0f;
-        maxSpeed = 3.0f;
-        health = 10.0f;
-        score = 100;
+        maxSpeed = 2.0f;
+        health = 80.0f;
+        score = 500;
     }
 
     // Update is called once per frame
@@ -29,9 +27,9 @@ public class MeleeEnemy : Enemy
             moveVelocity = Vector3.Normalize(moveVelocity) * maxSpeed;
         }
 
-        transform.Translate(moveVelocity * Time.deltaTime,Space.World);
+        transform.Translate(moveVelocity * Time.deltaTime, Space.World);
 
-        transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, -0.5f, transform.position.z);
 
         Vector3 direction = moveVelocity;
         direction.y = 0;

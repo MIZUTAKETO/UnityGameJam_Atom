@@ -191,7 +191,7 @@ MonoBehaviour:
   attackHitBox: {fileID: 3919099436947491403}
   slashWavePrefab: {fileID: 9053921418964895344, guid: f674790b4f6689a47b77d3e958b969dd, type: 3}
   spinSlashWavePrefab: {fileID: 5382474147291487201, guid: b8dc806f758c99d4eb100c0cadd94e8f, type: 3}
-  gamePlayScene: {fileID: 0}
+  gameplaySceneObject: {fileID: 0}
   playerModelRenderer: {fileID: 7508226948785328368}
   isInvincible: 0
 --- !u!1 &8475992681566891345
@@ -246,7 +246,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 3.5
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8177615748377756516
 MonoBehaviour:
